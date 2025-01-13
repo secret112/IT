@@ -1,0 +1,74 @@
+<!-- Write a PHP Program for String Creating and accessing, String Searching & Replacing String, Formatting String and demonstrating String Related Library function. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP String Operations</title>
+</head>
+<body>
+    <h1>PHP String Operations</h1>
+
+    <?php
+    // Creating and accessing strings
+    $str1 = "Hello, World!";
+    $str2 = 'PHP is awesome!';
+
+    echo "<h2>Creating and Accessing Strings</h2>";
+    echo "<p>String 1: $str1</p>";
+    echo "<p>String 2: $str2</p>";
+
+    // String length
+    $len1 = strlen($str1);
+    $len2 = strlen($str2);
+
+    echo "<p>Length of String 1: $len1</p>";
+    echo "<p>Length of String 2: $len2</p>";
+
+    // String concatenation
+    $concatenatedStr = $str1 . ' ' . $str2;
+    echo "<p>Concatenated String: $concatenatedStr</p>";
+
+    // String searching and replacing
+    $searchStr = "PHP";
+    $replaceStr = "JavaScript";
+    $newStr = str_replace($searchStr, $replaceStr, $concatenatedStr);
+    echo "<h2>String Searching and Replacing</h2>";
+    echo "<p>Original String: $concatenatedStr</p>";
+    echo "<p>After replacing '$searchStr' with '$replaceStr': $newStr</p>";
+
+    // Formatting strings
+    $price = 49.99;
+    echo "<h2>Formatting Strings</h2>";
+    echo "<p>Price: $" . number_format($price, 2) . "</p>";
+
+    // String related library functions
+    echo "<h2>String Related Library Functions</h2>";
+    
+    // Convert string to uppercase and lowercase
+    $uppercaseStr = strtoupper($str1);
+    $lowercaseStr = strtolower($str2);
+    echo "<p>Uppercase of '$str1': $uppercaseStr</p>";
+    echo "<p>Lowercase of '$str2': $lowercaseStr</p>";
+
+    // Trim whitespace from a string
+    $strWithWhitespace = "   Trim Test   ";
+    $trimmedStr = trim($strWithWhitespace);
+    echo "<p>Original String with whitespace: '$strWithWhitespace'</p>";
+    echo "<p>Trimmed String: '$trimmedStr'</p>";
+
+    // Find position of substring in a string
+    $searchSubstring = "World";
+    $pos = strpos($str1, $searchSubstring);
+    if ($pos !== false) {
+        echo "<p>Position of '$searchSubstring' in '$str1': $pos</p>";
+    } else {
+        echo "<p>'$searchSubstring' not found in '$str1'</p>";
+    }
+
+    // Repeat a string
+    $repeatStr = str_repeat('PHP ', 3);
+    echo "<p>Repeated String: $repeatStr</p>";
+    ?>
+
+</body>
+</html>

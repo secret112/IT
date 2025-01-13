@@ -1,0 +1,158 @@
+// Write a PHP Program to demonstrate how to handle file & directory, Opening and closing a file, Copying, renaming and deleting a file, working with directories, Creating and deleting folder, File Uploading & Downloading.
+//Handling Files and Directories in PHP
+//File Operations (file_operations.php):
+//php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File and Directory Operations</title>
+</head>
+<body>
+    <h1>File and Directory Operations</h1>
+
+    <?php
+    // File handling
+
+    // Opening and Closing a File
+    $file = "sample.txt";
+    $fileHandle = fopen($file, "r") or die("Unable to open file!");
+    echo "<p>Opened file '$file' successfully.</p>";
+    fclose($fileHandle);
+
+    // Copying a File
+    $sourceFile = "sample.txt";
+    $destinationFile = "copied_sample.txt";
+    if (copy($sourceFile, $destinationFile)) {
+        echo "<p>File '$sourceFile' copied to '$destinationFile' successfully.</p>";
+    } else {
+        echo "<p>Failed to copy file '$sourceFile'.</p>";
+    }
+
+    // Renaming a File
+    $oldName = "copied_sample.txt";
+    $newName = "renamed_sample.txt";
+    if (rename($oldName, $newName)) {
+        echo "<p>File '$oldName' renamed to '$newName' successfully.</p>";
+    } else {
+        echo "<p>Failed to rename file '$oldName'.</p>";
+    }
+
+    // Deleting a File
+    $fileToDelete = "renamed_sample.txt";
+    if (unlink($fileToDelete)) {
+        echo "<p>File '$fileToDelete' deleted successfully.</p>";
+    } else {
+        echo "<p>Failed to delete file '$fileToDelete'.</p>";
+    }
+
+    // Directory handling
+
+    // Creating a Directory
+    $directoryToCreate = "uploads";
+    if (!is_dir($directoryToCreate)) {
+        mkdir($directoryToCreate);
+        echo "<p>Directory '$directoryToCreate' created successfully.</p>";
+    } else {
+        echo "<p>Directory '$directoryToCreate' already exists.</p>";
+    }
+
+    // Deleting a Directory
+    $directoryToDelete = "uploads";
+    if (is_dir($directoryToDelete)) {
+        rmdir($directoryToDelete);
+        echo "<p>Directory '$directoryToDelete' deleted successfully.</p>";
+    } else {
+        echo "<p>Directory '$directoryToDelete' does not exist.</p>";
+    }
+
+    ?>
+
+</body>
+</html>
+
+
+//File Upload and Download (file_upload_download.php):
+//php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload and Download</title>
+</head>
+<body>
+    <h1>File Upload and Download</h1>
+
+    <!-- File Upload Form -->
+    <h2>File Upload</h2>
+    <form action="file_upload_handler.php" method="post" enctype="multipart/form-data">
+        <label for="file">Select File to Upload:</label>
+        <input type="file" id="file" name="file" required>
+        <br><br>
+        <input type="submit" value="Upload File">
+    </form>
+
+    <!-- File Download Link -->
+    <h2>File Download</h2>
+    <?php
+    $downloadFile = "sample.txt";
+    if (file_exists($downloadFile)) {
+        echo "<p><a href='file_download_handler.php?file=$downloadFile'>Download $downloadFile</a></p>";
+    } else {
+        echo "<p>File '$downloadFile' does not exist.</p>";
+    }
+    ?>
+
+</body>
+</html>
+
+
+
+//File Upload Handler (file_upload_handler.php):
+//php
+
+<?php
+// File Upload Handling
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"])) {
+    $uploadDir = "uploads/"; // Directory where uploaded files will be stored
+    $uploadFile = $uploadDir . basename($_FILES["file"]["name"]); // Path to store uploaded file
+
+    // Check if file is uploaded successfully
+    if (move_uploaded_file($_FILES["file"]["tmp_name"], $uploadFile)) {
+        echo "<p>The file ". htmlspecialchars(basename($_FILES["file"]["name"])) . " has been uploaded.</p>";
+    } else {
+        echo "<p>Sorry, there was an error uploading your file.</p>";
+    }
+}
+?>
+
+
+//File Download Handler (file_download_handler.php):
+//php
+
+<?php
+// File Download Handling
+
+if (isset($_GET['file'])) {
+    $file = $_GET['file'];
+
+    // Check if file exists
+    if (file_exists($file)) {
+        // Set headers for file download
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($file));
+        header('Content-Length: ' . filesize($file));
+        header('Pragma: public');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+        readfile($file); // Read the file to download
+        exit;
+    } else {
+        echo "File '$file' not found.";
+    }
+}
+?>

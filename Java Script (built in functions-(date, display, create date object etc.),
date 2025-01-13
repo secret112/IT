@@ -1,0 +1,50 @@
+<!-- /*Create a HTML page with Java Script (built in functions-(date, display, create date object etc.), user defined Functions- (passing parameter, recursive function))*/ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date and Recursive Function Example</title>
+<script>
+    // Function to display current date and time
+    function displayCurrentDateTime() {
+        let currentDate = new Date();
+        let dateTimeString = currentDate.toLocaleString();
+        document.getElementById("datetime").innerText = dateTimeString;
+    }
+
+    // Recursive function to calculate factorial
+    function factorial(n) {
+        if (n === 0 || n === 1) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    }
+
+    // Function to handle form submission
+    function calculateFactorial() {
+        let num = parseInt(document.getElementById("numInput").value);
+        let result = factorial(num);
+        document.getElementById("factorialResult").innerText = `Factorial of ${num} is ${result}`;
+    }
+</script>
+</head>
+<body>
+    <h1>Date and Recursive Function Example</h1>
+
+    <p>Click the button below to display the current date and time:</p>
+    <button onclick="displayCurrentDateTime()">Display Date and Time</button>
+    <p id="datetime"></p>
+
+    <hr>
+
+    <h2>Factorial Calculation</h2>
+    <p>Enter a number to calculate its factorial:</p>
+    <form onsubmit="event.preventDefault(); calculateFactorial();">	
+        <input type="number" id="numInput" required>
+        <button type="submit">Calculate Factorial</button>
+    </form>
+    <p id="factorialResult"></p>
+</body>
+</html>

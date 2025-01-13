@@ -1,0 +1,78 @@
+//PHP Program to Connect and Perform Basic Database Operations
+//Create a PHP script (database_operations.php) that connects to MySQL, performs Insert, Delete, Update, and Select operations on the users table.
+//database_operations.php:
+//php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP MySQL Database Operations</title>
+</head>
+<body>
+    <h1>PHP MySQL Database Operations</h1>
+
+    <?php
+    // Database configuration
+    $servername = "localhost";
+    $username = "root"; // Replace with your MySQL username
+    $password = ""; // Replace with your MySQL password
+    $dbname = "testdb"; // Replace with your database name
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    echo "<p>Connected successfully to database '$dbname'.</p>";
+
+    // Perform Insert Operation
+    $name = "John Doe";
+    $email = "john.doe@example.com";
+
+    $sql = "INSERT INTO users (name, email) VALUES ('$name', '$email')";
+    if ($conn->query($sql) === TRUE) {
+        echo "<p>New record created successfully.</p>";
+    } else {
+        echo "<p>Error: " . $sql . "<br>" . $conn->error . "</p>";
+    }
+
+    // Perform Select Operation
+    echo "<h2>Users List:</h2>";
+    $selectSql = "SELECT id, name, email, created_at FROM users";
+    $result = $conn->query($selectSql);
+
+    if ($result->num_rows > 0) {
+        echo "<ul>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<li>ID: " . $row["id"] . " - Name: " . $row["name"] . " - Email: " . $row["email"] . " - Created At: " . $row["created_at"] . "</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "<p>No users found.</p>";
+    }
+
+    // Perform Update Operation
+    $updateSql = "UPDATE users SET email='john.new@example.com' WHERE name='John Doe'";
+    if ($conn->query($updateSql) === TRUE) {
+        echo "<p>Record updated successfully.</p>";
+    } else {
+        echo "<p>Error updating record: " . $conn->error . "</p>";
+    }
+
+    // Perform Delete Operation
+    $deleteSql = "DELETE FROM users WHERE name='John Doe'";
+    if ($conn->query($deleteSql) === TRUE) {
+        echo "<p>Record deleted successfully.</p>";
+    } else {
+        echo "<p>Error deleting record: " . $conn->error . "</p>";
+    }
+
+    // Close connection
+    $conn->close();
+    ?>
+
+</body>
+</html>

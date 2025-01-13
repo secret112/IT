@@ -1,0 +1,39 @@
+<!-- Write a PHP program for creating index based and associative arrays. Also demonstrate accessing the array and element looping with Index based array -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Arrays</title>
+</head>
+<body>
+    <h1>PHP Arrays</h1>
+
+    <?php
+    // Index based array
+    $indexArray = array("Apple", "Banana", "Cherry", "Date", "Fig");
+
+    // Associative array
+    $assocArray = array(
+        "fruit1" => "Apple",
+        "fruit2" => "Banana",
+        "fruit3" => "Cherry",
+        "fruit4" => "Date",
+        "fruit5" => "Fig"
+    );
+
+    // Accessing elements in index based array
+    echo "<h2>Accessing Index Based Array</h2>";
+    echo "<p>First element: " . $indexArray[0] . "</p>";
+    echo "<p>Third element: " . $indexArray[2] . "</p>";
+
+    // Looping through elements in index based array
+    echo "<h2>Looping through Index Based Array</h2>";
+    echo "<ul>";
+    foreach ($indexArray as $fruit) {
+        echo "<li>$fruit</li>";
+    }
+    echo "</ul>";
+    ?>
+
+</body>
+</html>

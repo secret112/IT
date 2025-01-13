@@ -1,0 +1,49 @@
+
+import java.applet.Applet;
+import java.awt.Graphics;
+import java.awt.TextField;
+import java.awt.Button;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class PalindromeCheck extends Applet implements ActionListener {
+    TextField inputField;
+    Button checkBtn;
+    String result = "";
+
+    public void init() {
+        inputField = new TextField(20);
+        checkBtn = new Button("Check Palindrome");
+        checkBtn.addActionListener(this);
+
+        add(inputField);
+        add(checkBtn);
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        String input = inputField.getText();
+        if (isPalindrome(input)) {
+            result = "Palindrome!";
+        } else {
+            result = "Not a Palindrome!";
+        }
+        repaint();
+    }
+
+    private boolean isPalindrome(String str) {
+        int left = 0;
+        int right = str.length() - 1;
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    public void paint(Graphics g) {
+        g.drawString("Result: " + result, 50, 50);
+    }
+}

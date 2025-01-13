@@ -1,0 +1,49 @@
+<!-- Write a PHP Program to demonstrate statement/process like exception and error, Try, catch, throw, Error tracking and debugging
+PHP Program Demonstrating Exception Handling and Error Tracking
+exception_handling.php: -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Exception Handling</title>
+</head>
+<body>
+    <h1>PHP Exception Handling</h1>
+
+    <?php
+    // Example function that throws an exception
+    function divideNumbers($numerator, $denominator) {
+        if ($denominator == 0) {
+            throw new Exception("Division by zero error.");
+        }
+        return $numerator / $denominator;
+    }
+
+    // Example try-catch block to handle exceptions
+    try {
+        $result = divideNumbers(10, 0);
+        echo "<p>Result of division: $result</p>";
+    } catch (Exception $e) {
+        echo "<p>Caught exception: " . $e->getMessage() . "</p>";
+    }
+
+    // Example of error handling with error_reporting and error_log
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    // Example of debugging with var_dump and error_log
+    $array = [1, 2, 3];
+    $undefinedVariable = $array[5]; // Accessing an undefined index
+    var_dump($undefinedVariable); // Outputs NULL and generates a notice
+
+    // Logging errors to a file
+    error_log("Error: Undefined index accessed in exception_handling.php", 3, "error.log");
+
+    echo "<p>Check error.log for logged errors.</p>";
+
+    ?>
+
+</body>
+</html>

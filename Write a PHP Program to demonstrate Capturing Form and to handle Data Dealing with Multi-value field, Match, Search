@@ -1,0 +1,95 @@
+<!-- Write a PHP Program to demonstrate Capturing Form and to handle Data Dealing with Multi-value field, Match, Search and Split function.
+HTML Form (captureForm.html) -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Form Handling</title>
+</head>
+<body>
+    <h1>PHP Form Handling</h1>
+
+    <form action="process_form.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="interests">Interests:</label><br>
+        <input type="checkbox" id="interest1" name="interests[]" value="Sports">
+        <label for="interest1">Sports</label><br>
+        <input type="checkbox" id="interest2" name="interests[]" value="Music">
+        <label for="interest2">Music</label><br>
+        <input type="checkbox" id="interest3" name="interests[]" value="Books">
+        <label for="interest3">Books</label><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>
+
+
+//php file
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Form Processing</title>
+</head>
+<body>
+    <h1>PHP Form Processing</h1>
+
+    <?php
+    // Capture form data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $interests = isset($_POST['interests']) ? $_POST['interests'] : array();
+    $message = $_POST['message'];
+
+    // Display captured data
+    echo "<h2>Form Data:</h2>";
+    echo "<p>Name: $name</p>";
+    echo "<p>Email: $email</p>";
+
+    if (!empty($interests)) {
+        echo "<p>Interests:</p>";
+        echo "<ul>";
+        foreach ($interests as $interest) {
+            echo "<li>$interest</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "<p>No interests selected.</p>";
+    }
+
+    echo "<p>Message:</p>";
+    echo "<p>$message</p>";
+
+    // Example using preg_match
+    echo "<h2>Using preg_match</h2>";
+    $pattern = "/[0-9]+/";
+    $str = "Hello 123 World";
+    if (preg_match($pattern, $str, $matches)) {
+        echo "<p>Numbers found in '$str': " . implode(", ", $matches) . "</p>";
+    } else {
+        echo "<p>No numbers found in '$str'.</p>";
+    }
+
+    // Example using preg_split
+    echo "<h2>Using preg_split</h2>";
+    $str = "apple, banana, cherry, date";
+    $array = preg_split("/[\s,]+/", $str);
+    echo "<p>Splitting '$str': " . implode(", ", $array) . "</p>";
+
+    ?>
+
+</body>
+</html>

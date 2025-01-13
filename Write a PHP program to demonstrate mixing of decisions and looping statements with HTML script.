@@ -1,0 +1,36 @@
+<!-- Write a PHP program to demonstrate mixing of decisions and looping statements with HTML script. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Mixing Decisions and Looping with HTML</title>
+    <style>
+        .odd {
+            background-color: #f0f0f0;
+        }
+        .even {
+            background-color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>PHP Mixing Decisions and Looping with HTML</h1>
+
+    <?php
+    // Example array
+    $numbers = [1, 2, 3, 4, 5];
+
+    // Using decision and looping statements
+    foreach ($numbers as $num) {
+        if ($num % 2 == 0) {
+            $class = 'even';
+        } else {
+            $class = 'odd';
+        }
+
+        echo "<div class=\"$class\">Number: $num</div>";
+    }
+    ?>
+
+</body>
+</html>

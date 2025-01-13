@@ -1,0 +1,39 @@
+import java.applet.Applet;
+import java.awt.Graphics;
+import java.awt.TextField;
+import java.awt.Button;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class FactorialApplet extends Applet implements ActionListener {
+    TextField numField;
+    Button calculateBtn;
+    int result = 0;
+
+    public void init() {
+        numField = new TextField(10);
+        calculateBtn = new Button("Calculate Factorial");
+        calculateBtn.addActionListener(this);
+
+        add(numField);
+        add(calculateBtn);
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        int num = Integer.parseInt(numField.getText());
+        result = factorial(num);
+        repaint();
+    }
+
+    private int factorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    }
+
+    public void paint(Graphics g) {
+        g.drawString("Factorial: " + result, 50, 50);
+    }
+}

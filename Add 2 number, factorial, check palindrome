@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Programs</title>
+    <script>
+        function addNumbers() {
+            let num1 = parseInt(document.getElementById("num1").value);
+            let num2 = parseInt(document.getElementById("num2").value);
+            let sum = num1 + num2;
+            document.getElementById("addResult").innerText = `Sum: ${sum}`;
+        }
+
+        function calculateFactorial() {
+            let num = parseInt(document.getElementById("factorialNum").value);
+            let result = factorial(num);
+            document.getElementById("factorialResult").innerText = `Factorial of ${num} is ${result}`;
+        }
+
+        function factorial(n) {
+            if (n === 0 || n === 1) {
+                return 1;
+            } else {
+                return n * factorial(n - 1);
+            }
+        }
+
+        function checkPalindrome() {
+            let inputString = document.getElementById("palindromeInput").value;
+            let result = isPalindrome(inputString);
+            if (result) {
+                document.getElementById("palindromeResult").innerText = `${inputString} is a palindrome.`;
+            } else {
+                document.getElementById("palindromeResult").innerText = `${inputString} is not a palindrome.`;
+            }
+        }
+
+        function isPalindrome(str) {
+            str = str.toLowerCase().replace(/[^a-zA-Z0-9]/g, ''); // Remove non-alphanumeric characters and convert to lowercase
+            let len = str.length;
+            for (let i = 0; i < len/2; i++) {
+                if (str[i] !== str[len - 1 - i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>JavaScript Programs</h1>
+
+    <h2>Add Two Numbers</h2>
+    <label for="num1">Number 1:</label>
+    <input type="number" id="num1"><br><br>
+    <label for="num2">Number 2:</label>
+    <input type="number" id="num2"><br><br>
+    <button onclick="addNumbers()">Add</button><br><br>
+    <p id="addResult"></p>
+
+    <hr>
+
+    <h2>Factorial of a Number</h2>
+    <label for="factorialNum">Enter a number:</label>
+    <input type="number" id="factorialNum"><br><br>
+    <button onclick="calculateFactorial()">Calculate Factorial</button><br><br>
+    <p id="factorialResult"></p>
+
+    <hr>
+
+    <h2>Palindrome Check</h2>
+    <label for="palindromeInput">Enter a string:</label>
+    <input type="text" id="palindromeInput"><br><br>
+    <button onclick="checkPalindrome()">Check Palindrome</button><br><br>
+    <p id="palindromeResult"></p>
+
+</body>
+</html>

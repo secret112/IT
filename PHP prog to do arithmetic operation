@@ -1,0 +1,48 @@
+<!-- Write a PHP program to demonstrate simple tasks (such as: to display ‘hello’) and basic PHP syntax (includes defining variable, constant, data type and basic arithmetic Operations with operators) . -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Simple Tasks and Syntax</title>
+</head>
+<body>
+    <h1>PHP Simple Tasks and Syntax</h1>
+
+    <?php
+    // Displaying 'hello'
+    echo "<p>Hello, World!</p>";
+
+    // Defining variables
+    $name = "John Doe";
+    $age = 30;
+    $height = 175.5;
+    $isStudent = true;
+
+    // Displaying variables
+    echo "<p>Name: " . $name . "</p>";
+    echo "<p>Age: " . $age . "</p>";
+    echo "<p>Height: " . $height . " cm</p>";
+    echo "<p>Is Student: " . ($isStudent ? 'Yes' : 'No') . "</p>";
+
+    // Defining constants
+    define('PI', 3.14159);
+    define('GREETING', 'Welcome to PHP!');
+
+    // Displaying constants
+    echo "<p>Value of PI: " . PI . "</p>";
+    echo "<p>Greeting Message: " . GREETING . "</p>";
+
+    // Basic arithmetic operations
+    $num1 = 10;
+    $num2 = 5;
+
+    echo "<h2>Arithmetic Operations</h2>";
+    echo "<p>Addition: " . ($num1 + $num2) . "</p>";
+    echo "<p>Subtraction: " . ($num1 - $num2) . "</p>";
+    echo "<p>Multiplication: " . ($num1 * $num2) . "</p>";
+    echo "<p>Division: " . ($num1 / $num2) . "</p>";
+    echo "<p>Modulus: " . ($num1 % $num2) . "</p>";
+    ?>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!-- Write a PHP program to demonstrate call by value, call by reference and recursive function. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Call by Value, Call by Reference, Recursive Function</title>
+</head>
+<body>
+    <h1>PHP Call by Value, Call by Reference, Recursive Function</h1>
+
+    <?php
+    // Function to demonstrate call by value
+    function incrementByValue($num) {
+        $num += 10;
+        echo "<p>Inside incrementByValue function: \$num = $num</p>";
+    }
+
+    $value = 5;
+    echo "<p>Before calling incrementByValue function: \$value = $value</p>";
+    incrementByValue($value);
+    echo "<p>After calling incrementByValue function: \$value = $value</p>"; // $value remains unchanged
+
+    // Function to demonstrate call by reference
+    function incrementByReference(&$num) {
+        $num += 10;
+        echo "<p>Inside incrementByReference function: \$num = $num</p>";
+    }
+
+    $value = 5;
+    echo "<p>Before calling incrementByReference function: \$value = $value</p>";
+    incrementByReference($value);
+    echo "<p>After calling incrementByReference function: \$value = $value</p>"; // $value is modified
+
+    // Recursive function to calculate factorial
+    function factorial($n) {
+        if ($n <= 1) {
+            return 1;
+        } else {
+            return $n * factorial($n - 1);
+        }
+    }
+
+    $num = 5;
+    echo "<p>Factorial of $num is " . factorial($num) . "</p>";
+    ?>
+
+</body>
+</html>

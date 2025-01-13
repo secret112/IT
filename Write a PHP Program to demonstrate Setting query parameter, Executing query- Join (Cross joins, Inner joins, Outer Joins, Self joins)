@@ -1,0 +1,144 @@
+<!-- Write a PHP Program to demonstrate Setting query parameter, Executing query- Join (Cross joins, Inner joins, Outer Joins, Self joins)
+PHP Program Demonstrating SQL Joins and Query Parameters
+query_joins.php: -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP SQL Joins</title>
+</head>
+<body>
+    <h1>PHP SQL Joins</h1>
+
+    <?php
+    // Database configuration
+    $servername = "localhost";
+    $username = "root"; // Replace with your MySQL username
+    $password = ""; // Replace with your MySQL password
+    $dbname = "testdb"; // Replace with your database name
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    echo "<p>Connected successfully to database '$dbname'.</p>";
+
+    // Example data for demonstration
+    $sql_create_tables = "
+        CREATE TABLE IF NOT EXISTS employees (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(50) NOT NULL,
+            department_id INT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS departments (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(50) NOT NULL
+        );
+
+        INSERT INTO departments (name) VALUES
+            ('HR'),
+            ('IT'),
+            ('Finance');
+
+        INSERT INTO employees (name, department_id) VALUES
+            ('John Doe', 1),
+            ('Jane Smith', 2),
+            ('Michael Johnson', 1),
+            ('Emily Davis', 3);
+    ";
+
+    if ($conn->multi_query($sql_create_tables) === TRUE) {
+        echo "<p>Tables created and initial data inserted successfully.</p>";
+    } else {
+        echo "<p>Error creating tables: " . $conn->error . "</p>";
+    }
+
+    // Close connection after initial setup (not necessary for execution of joins)
+    $conn->close();
+
+    // Reconnect to execute joins
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Execute SQL Joins
+    echo "<h2>SQL Joins</h2>";
+
+    // Cross Join
+    echo "<h3>Cross Join</h3>";
+    $sql_cross_join = "
+        SELECT e.name AS employee_name, d.name AS department_name
+        FROM employees e
+        CROSS JOIN departments d;
+    ";
+    executeAndDisplayQuery($conn, $sql_cross_join);
+
+    // Inner Join
+    echo "<h3>Inner Join</h3>";
+    $sql_inner_join = "
+        SELECT e.name AS employee_name, d.name AS department_name
+        FROM employees e
+        INNER JOIN departments d ON e.department_id = d.id;
+    ";
+    executeAndDisplayQuery($conn, $sql_inner_join);
+
+    // Left Outer Join
+    echo "<h3>Left Outer Join</h3>";
+    $sql_left_outer_join = "
+        SELECT e.name AS employee_name, d.name AS department_name
+        FROM employees e
+        LEFT JOIN departments d ON e.department_id = d.id;
+    ";
+    executeAndDisplayQuery($conn, $sql_left_outer_join);
+
+    // Right Outer Join
+    echo "<h3>Right Outer Join</h3>";
+    $sql_right_outer_join = "
+        SELECT e.name AS employee_name, d.name AS department_name
+        FROM employees e
+        RIGHT JOIN departments d ON e.department_id = d.id;
+    ";
+    executeAndDisplayQuery($conn, $sql_right_outer_join);
+
+    // Self Join (for demonstration)
+    echo "<h3>Self Join</h3>";
+    $sql_self_join = "
+        SELECT e1.name AS employee_name, e2.name AS manager_name
+        FROM employees e1
+        LEFT JOIN employees e2 ON e1.manager_id = e2.id;
+    ";
+    executeAndDisplayQuery($conn, $sql_self_join);
+
+    // Function to execute query and display results
+    function executeAndDisplayQuery($conn, $sql) {
+        $result = $conn->query($sql);
+
+        if ($result === FALSE) {
+            echo "<p>Error executing query: " . $conn->error . "</p>";
+        } else {
+            if ($result->num_rows > 0) {
+                echo "<ul>";
+                while ($row = $result->fetch_assoc()) {
+                    echo "<li>" . $row["employee_name"] . " - " . $row["department_name"] . "</li>";
+                }
+                echo "</ul>";
+            } else {
+                echo "<p>No results found.</p>";
+            }
+        }
+    }
+
+    // Close connection
+    $conn->close();
+    ?>
+
+</body>
+</html>

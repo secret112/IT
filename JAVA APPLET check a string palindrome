@@ -1,4 +1,10 @@
+/* How to Run Java Applets:
+1.	Compile: Compile each Java file (AddNumbers.java, FactorialApplet.java, PalindromeCheck.java) using javac command.
+bash
 
+javac AddNumbers.java
+javac FactorialApplet.java
+*/
 import java.applet.Applet;
 import java.awt.Graphics;
 import java.awt.TextField;

@@ -1,0 +1,64 @@
+<!-- Write a PHP Program to demonstrate associative arrays using each () and for each() and a few related Library functions. Enhance the array program by including decision and loop statements. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Associative Arrays and Functions</title>
+</head>
+<body>
+    <h1>PHP Associative Arrays and Functions</h1>
+
+    <?php
+    // Associative array
+    $studentScores = array(
+        "John" => 85,
+        "Jane" => 92,
+        "Doe" => 78,
+        "Smith" => 88,
+        "Emily" => 95
+    );
+
+    // Demonstrating foreach() loop
+    echo "<h2>Demonstrating foreach() Loop</h2>";
+    foreach ($studentScores as $name => $score) {
+        echo "<p>$name scored $score marks.</p>";
+    }
+
+    // Using library functions with associative arrays
+    echo "<h2>Using Library Functions</h2>";
+
+    // Count number of elements in array
+    $numStudents = count($studentScores);
+    echo "<p>Number of students: $numStudents</p>";
+
+    // Check if a key exists in the array
+    $keyToCheck = "Doe";
+    if (array_key_exists($keyToCheck, $studentScores)) {
+        echo "<p>$keyToCheck exists in the array.</p>";
+    } else {
+        echo "<p>$keyToCheck does not exist in the array.</p>";
+    }
+
+    // Find the maximum value in the array
+    $maxScore = max($studentScores);
+    echo "<p>Maximum score: $maxScore</p>";
+
+    // Calculate the average score
+    $totalScore = array_sum($studentScores);
+    $averageScore = $totalScore / $numStudents;
+    echo "<p>Average score: " . round($averageScore, 2) . "</p>";
+
+    // Using decision and loop statements
+    echo "<h2>Using Decision and Loop Statements</h2>";
+    $passingScore = 80;
+    foreach ($studentScores as $name => $score) {
+        if ($score >= $passingScore) {
+            echo "<p>$name has passed with a score of $score.</p>";
+        } else {
+            echo "<p>$name has failed with a score of $score.</p>";
+        }
+    }
+    ?>
+    
+</body>
+</html>
